@@ -1,0 +1,130 @@
+﻿<Window x:Class="TSPVisualiation.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TSPVisualiation"
+        mc:Ignorable="d"
+        Title="TSP Visualization" Height="600" Width="1225"
+        Background="Gray">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="4*"></ColumnDefinition>
+            <ColumnDefinition Width="4*"></ColumnDefinition>
+            <ColumnDefinition Width="2*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20*"></RowDefinition>
+            <RowDefinition Height="2*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Canvas Background="White" Name="tabuCanvas" Grid.Column="1"/>
+        <Canvas Background="White" Name="mainCanvas" Grid.Column="0"/>
+        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Name="TabuTextBlock" FontWeight="Bold" Grid.Row="1" Grid.Column="1" Text="TABU SEARCH"></TextBlock>
+        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Name="GeneticTextBlock" FontWeight="Bold" Grid.Row="1" Grid.Column="0" Text="GENETIC ALGORITHM"></TextBlock>
+
+
+        <Grid Background="Gray" Grid.Column="2" Grid.RowSpan="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="14*"></RowDefinition>
+                <RowDefinition Height="2*"></RowDefinition>
+                <RowDefinition Height="2*"></RowDefinition>
+            </Grid.RowDefinitions>
+
+
+            <Grid Grid.Row="0" Background="Gray">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <Label FontWeight="Bold" Grid.Column="0" VerticalAlignment="Center" Content="Time [s]: "></Label>
+                <TextBox VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
+                         Text="30" Grid.Column="1" HorizontalAlignment="Stretch" Name="TimeTextBox"
+                         VerticalAlignment ="Stretch" TextChanged="TimeTextBox_OnTextChanged" ></TextBox>
+            </Grid>
+
+            <Grid Grid.Row="1" Background="Gray">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                
+                <Label FontWeight="Bold" Grid.Column="0" VerticalAlignment="Center" Content="Size: "></Label>
+                <TextBox VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
+                         Text="100" Grid.Column="1" HorizontalAlignment="Stretch" Name="SizeTextBox" VerticalAlignment ="Stretch" ></TextBox>
+            </Grid>
+
+            <Grid Grid.Row="2">
+                <Grid.RowDefinitions>
+     
+                    <RowDefinition Height="3*"></RowDefinition>
+                    <RowDefinition Height="2*"></RowDefinition>
+                    <RowDefinition Height="3*"></RowDefinition>
+                    <RowDefinition Height="3*"></RowDefinition>
+                    <RowDefinition Height="3*"></RowDefinition>
+                    <RowDefinition Height="3*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <Label FontWeight="Bold" Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" Content="Population: "></Label>
+                <TextBox VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
+                         Text="50" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch"
+                         Name="PopulationSizeTextBox" VerticalAlignment ="Stretch"
+                         TextChanged="PopulationSizeTextBox_OnTextChanged"></TextBox>
+
+
+                <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
+                    <TextBlock Text="Tabu neighbourhood:" TextWrapping="WrapWithOverflow" FontWeight="Bold"/>
+                    <StackPanel Orientation="Vertical">
+                        <RadioButton Content="SWAP" Tag="SWAP" Checked="ToggleButton_OnChecked"/>
+                        <RadioButton Content="INVERT" Tag="INVERT" Checked="ToggleButton_OnChecked" IsChecked="True"/>
+                        <RadioButton Content="EDGE SWAP" Tag="EDGE_SWAP" Checked="ToggleButton_OnChecked"/>
+                    </StackPanel>
+                </StackPanel>
+
+                <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
+                    <TextBlock Text="Genetic mutation:" TextWrapping="WrapWithOverflow" FontWeight="Bold"/>
+                    <StackPanel Orientation="Vertical">
+                        <RadioButton Content="SWAP" Tag="SWAP" Checked="ToggleMutationButton_OnChecked"/>
+                        <RadioButton Content="INVERT" Tag="INVERT" Checked="ToggleMutationButton_OnChecked" IsChecked="True"/>
+                    </StackPanel>
+                </StackPanel>
+
+                <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2">
+                    <TextBlock Text="Genetic crossover:" TextWrapping="WrapWithOverflow" FontWeight="Bold"/>
+                    <StackPanel Orientation="Vertical">
+                        <RadioButton Content="OX" Tag="OX" IsChecked="True" Checked="ToggleCrossButton_OnChecked"/>
+                        <RadioButton Content="PMX" Tag="PMX" Checked="ToggleCrossButton_OnChecked" />
+                    </StackPanel>
+                </StackPanel>
+
+                <Label FontWeight="Bold" Grid.Column="0" Grid.Row="4" VerticalAlignment="Center" Content="Mutation ratio:"></Label>
+                <TextBox VerticalContentAlignment="Center" HorizontalContentAlignment="Center" 
+                         Text="0,1" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Stretch"
+                         Name="MutationRatioTextBox" VerticalAlignment ="Stretch" 
+                         TextChanged="MutationRatioTextBox_OnTextChanged"></TextBox>
+
+                <Label FontWeight="Bold" Grid.Column="0" Grid.Row="5" VerticalAlignment="Center" Content="Crossbreed ratio:"></Label>
+                <TextBox VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
+                         Text="0,8" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Stretch" 
+                         Name="CrossBreedRatioTextBox" VerticalAlignment ="Stretch" 
+                         TextChanged="CrossBreedRatioTextBox_OnTextChanged"></TextBox>
+                
+
+            </Grid>
+            
+            
+            <Button FontWeight="Bold" Name="StartButton" Content="Generate !"  Grid.Row="3" Click="StartButton_Click" ></Button>
+            <Button FontWeight="Bold" Name="StartAlgoButton" Grid.Row="4" Content="Start Algorithm" Click="StartAlgoButton_Click"></Button>
+        </Grid>
+        
+
+        
+    </Grid>
+</Window>
